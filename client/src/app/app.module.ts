@@ -8,6 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LoginregComponent } from './loginreg/loginreg.component'; 
 
+//bootstrap components
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +25,13 @@ import { LoginregComponent } from './loginreg/loginreg.component';
     FormsModule,
     HttpModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    CollapseModule.forRoot(),
+    ButtonsModule.forRoot(),
+    ProgressbarModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

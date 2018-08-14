@@ -1,13 +1,36 @@
 <div class="container">
     <div class="row">
-        <p>username</p>
-        <p>password</p>
+        <div class="col">
+            <h3 class="display-4">Log In</h3>
+            <form (submit)="login()">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" id="password">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Login">
+            </form>
+            <a (click)="openModal(registration)">Not a member? Register Here. </a>
+        </div>
     </div>
-    <div class="row">
-        <p>name</p>
-        <p>username</p>
-        <p>email</p>
-        <p>password</p>
-        <p>confirm password</p>
-    </div>
+
+    <ng-template #registration>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Register</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>name</p>
+            <p>username</p>
+            <p>email</p>
+            <p>password</p>
+            <p>confirm password</p>
+        </div>
+    </ng-template>
+
 </div>

@@ -20,19 +20,15 @@
                 <input type="submit" class="btn btn-primary" value="Login">
             </form>
             <br>
-            <button type="button" class="btn btn-outline-info btn-sm" (click)="openModal(registration)">Not a member? Register Here. </button>
+            <button type="button" class="btn btn-outline-info btn-sm" (click)="openModal(registration)">New user?</button>
         </div>
     </div>
 
     <ng-template #registration>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left">Register</h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="modal-header align-content-center">
+            <h4 class="modal-title display-4">Register</h4>
         </div>
         <div class="modal-body">
-            <h3 class="display-4">Log In</h3>
             <form (submit)="register()">
                 <div class="form-group">
                     <label for="name">Name</label>

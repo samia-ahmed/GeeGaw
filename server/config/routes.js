@@ -7,12 +7,12 @@ module.exports = function(app){
     //     // res.render('index')
     //     console.log("??")
     // })
-    app.post('/loginUser', function(){
+    app.post('/loginUser', function(req, res){
         console.log("in the routes");
-        home.loginUser();
-        
+        home.loginUser(req, res)
     })
 
+    //is this supposed to be app.all instead of app.get?
     app.get('*', function(req,res){
         res.sendFile(path.resolve('./client/src/index.html'))
     })

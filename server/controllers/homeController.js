@@ -4,8 +4,9 @@ var mongoose = require("mongoose"),
 
 module.exports = { 
  //functions
- loginUser: function(){
-   console.log("at the controller");
+ loginUser: function(req, res){
+   console.log("hi from controller");
+   res.json("success")
    
  }
 

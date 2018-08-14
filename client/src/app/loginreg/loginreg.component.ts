@@ -12,6 +12,7 @@ export class LoginregComponent implements OnInit {
   user:object
   newUser:object
   mediumRegex: RegExp
+
   constructor(private _interlink: InterlinkService, private _router: Router) {
     this.user={
       username: '',
@@ -28,13 +29,18 @@ export class LoginregComponent implements OnInit {
     this.mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
   }
 
-  //testing login route
-
+  //mock login route to test linking
   login() {
-    this._interlink.login(this.user);
     console.log("logging in from component");
+    this._interlink.login(this.user, (res) => {
+      console.log(res);
+      console.log("back in component");  
+      if (res == "success") {
+        console.log("n*gga we made it");
+      }
+    });
   }
-  
+
   //login function with basic validation pseudocode
   /* login() {
     this._interlink.login(this.user,(data)=>{

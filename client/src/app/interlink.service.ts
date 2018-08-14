@@ -11,8 +11,11 @@ export class InterlinkService {
 
   constructor(private _http: HttpClient) { }
 
-  login(user) {
+  login(user, cb) {
     console.log("hi from service");
-    this._http.post('/loginUser', user).subscribe()    
+    this._http.post('/loginUser', user).subscribe((res) => {
+      console.log("back in service");
+      cb(res)
+    })    
   }
 }

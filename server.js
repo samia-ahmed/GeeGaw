@@ -18,4 +18,4 @@ require("./server/config/routes.js")(app); //importing app and running it immedi
 
 app.listen(port, function () {
   console.log("listening on port 8001");
-}) 
+});

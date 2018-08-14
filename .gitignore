@@ -2,6 +2,11 @@ node_modules
 
 .env
 
+<<<<<<< HEAD
+=======
+.gitignore
+
+>>>>>>> 1e4150d24384409a55df04387b5fce25671d6a84
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output

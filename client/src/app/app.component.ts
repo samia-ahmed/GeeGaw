@@ -13,7 +13,7 @@ export class AppComponent {
   public modalRef: BsModalRef;
   constructor(private modalService: BsModalService) {}
 
-  public openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+  public openModal(registration: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(registration);
   }
 }

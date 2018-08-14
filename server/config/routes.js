@@ -7,6 +7,11 @@ module.exports = function(app){
     //     // res.render('index')
     //     console.log("??")
     // })
+    app.post('/loginUser', function(){
+        console.log("in the routes");
+        home.loginUser();
+        
+    })
 
     app.get('*', function(req,res){
         res.sendFile(path.resolve('./client/src/index.html'))

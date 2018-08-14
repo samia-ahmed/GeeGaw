@@ -1,20 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, RendererFactory2 } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'; 
+
 import { LoginregComponent } from './loginreg/loginreg.component'; 
 
 //bootstrap components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { InterlinkService } from './interlink.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
   imports: [
     FormsModule,
     HttpModule,
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
@@ -33,7 +37,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
     ButtonsModule.forRoot(),
     ProgressbarModule.forRoot(),
   ],
-  providers: [],
+  providers: [InterlinkService, BsModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

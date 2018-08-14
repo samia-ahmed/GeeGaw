@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+
 @Injectable({
   providedIn: 'root'
 })

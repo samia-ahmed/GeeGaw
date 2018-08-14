@@ -1,5 +1,5 @@
-import { Component, TemplateRef } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Component } from '@angular/core';
+
 
 
 @Component({
@@ -10,16 +10,5 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 export class AppComponent {
   title = 'GeeGaw';
-
-  // public modalRef: BsModalRef;
   
-  
-  // constructor(private modalService: BsModalService) {
-  //   console.log("test 1");
-  // }
-
-  // public openModal(template: TemplateRef<any>) {
-  //   console.log("test 2");
-  //   this.modalRef = this.modalService.show(template);
-  // }
 }

@@ -9,7 +9,8 @@ var mongoose = require("mongoose"),
     password: String,
     followers: [], 
     following: [],
-    likes: []
+    likes: [],
+    posts: []
 
   }) 
 

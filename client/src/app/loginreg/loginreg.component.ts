@@ -20,9 +20,9 @@ export class LoginregComponent implements OnInit {
     }
     this.newUser={
       name:'',
-      username:'',
+      newUsername:'',
       email:'',
-      password:'',
+      newPassword:'',
       confirm:''
     }
     //we don't have to use this, but its checking password strength

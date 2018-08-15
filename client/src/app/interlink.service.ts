@@ -10,7 +10,7 @@ import { TemplateRef } from '@angular/core';
 export class InterlinkService {
   // public modalRef: BsModalRef;
   constructor(private _http: HttpClient
-    // private modalService: BsModalService
+    // ,private modalService: BsModalService
   ) { }
 
   // public openModal(registration: TemplateRef<any>) {

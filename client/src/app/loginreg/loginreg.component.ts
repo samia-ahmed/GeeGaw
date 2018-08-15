@@ -19,7 +19,8 @@ export class LoginregComponent implements OnInit {
       password:''
     }
     this.newUser={
-      name:'',
+      first_name:'',
+      last_name:'',
       newUsername:'',
       email:'',
       newPassword:'',
@@ -62,7 +63,25 @@ export class LoginregComponent implements OnInit {
     })
   } */
 
-  // register(){}
+  // register(){
+    //!newUsername in db?
+      //kick back with error
+    //!email in db?
+      //kick back with error
+    //first_name <=2
+      //kick back with error 
+    //last_name <=2 
+      //kick back with error
+    //newPassword != regex
+      //kick back with error
+    //newPassword < 8
+      //kick back with error
+    //newPassword != confirm
+      //kick back with error
+    
+      //store user in session
+    //reroute to dashboard
+  //}
 
   ngOnInit() {
   }

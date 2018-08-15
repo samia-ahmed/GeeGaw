@@ -62,11 +62,6 @@ export class LoginregComponent implements OnInit {
 
   // register(){}
 
-  // openModal(registration){
-  //   this._interlink.openModal(registration);
-  // }
-
-
   ngOnInit() {
   }
 

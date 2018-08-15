@@ -29,6 +29,10 @@ export class LoginregComponent implements OnInit {
     this.mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
   }
 
+  openModal(registration){
+    this._interlink.openModal(registration);
+  }
+
   //mock login route to test linking
   login() {
     console.log("logging in from component");

@@ -8,8 +8,12 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   providedIn: 'root'
 })
 export class InterlinkService {
+  public modalRef: BsModalRef;
+  constructor(private _http: HttpClient,private modalService: BsModalService) { }
 
-  constructor(private _http: HttpClient) { }
+  public openModal(registration: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(registration);
+  }
 
   login(user, cb) {
     console.log("hi from service");

@@ -18,11 +18,15 @@ import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginregComponent
+    LoginregComponent,
+    DashboardComponent,
+    FooterComponent
   ],
   imports: [
     FormsModule,

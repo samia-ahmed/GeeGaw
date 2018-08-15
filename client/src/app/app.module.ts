@@ -9,6 +9,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http'; 
 
 import { LoginregComponent } from './loginreg/loginreg.component'; 
+import { InterlinkService } from './interlink.service';
 
 //bootstrap components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -17,7 +18,6 @@ import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
-import { InterlinkService } from './interlink.service';
 
 @NgModule({
   declarations: [

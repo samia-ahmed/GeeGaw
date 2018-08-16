@@ -38,13 +38,8 @@ export class LoginregComponent implements OnInit {
   login() {
     console.log("logging in from component");
     this._interlink.login(this.user, (res) => {
-      console.log(res);
-      console.log("back in component");  
-      if (res == "success") {
-        console.log("made it back");
-        // console.log(userCreated);
-        
-      }
+      console.log("back in component",res);  
+      this._router.navigate(['dashboard'])
     });
   }
 

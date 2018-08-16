@@ -1,4 +1,10 @@
 <div class="container">
   <p>news feed loop</p>
+  <a href="/logout">Logout [dev-link]</a>
+  <ul *ngFor="let user of allUsers" class="listgroup">
+    <li>
+      <p class="list-group-item">{{user.username}}</p>
+    </li>
+  </ul>
 </div>
 <app-footer></app-footer>

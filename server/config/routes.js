@@ -11,6 +11,12 @@ module.exports = function(app){
         console.log("in the routes");
         home.loginUser(req, res)
     })
+    app.get('/logout', function(req,res){
+        home.logout(req,res);
+    })
+    app.get('/sess', function(req,res){
+        home.checkSess(req,res);
+    })
 
     //is this supposed to be app.all instead of app.get?
     app.get('*', function(req,res){

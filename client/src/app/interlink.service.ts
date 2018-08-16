@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'Rxjs';
 
 import { TemplateRef } from '@angular/core';
 // import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -18,10 +19,14 @@ export class InterlinkService {
   // }
 
   login(user, cb) {
-    console.log("hi from service");
     this._http.post('/loginUser', user).subscribe((res) => {
-      console.log("back in service");
       cb(res)
     })    
+  }
+
+  checkSess(cb){
+    this._http.get('/sess').subscribe((res)=>{
+      cb(res);
+    })
   }
 }

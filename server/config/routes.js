@@ -17,7 +17,7 @@ module.exports = function(app){
     })
 
     //is this supposed to be app.all instead of app.get?
-    app.get('*', function(req,res){
+    app.all('*', function(req,res){
         res.sendFile(path.resolve('./client/src/index.html'))
     })
 }

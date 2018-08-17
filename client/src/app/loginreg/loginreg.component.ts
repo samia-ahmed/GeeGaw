@@ -51,13 +51,17 @@ export class LoginregComponent implements OnInit {
 
   register(){
     this.errorMessages = [];
+    console.log("passwords",this.newUser['confirm'],this.newUser['newPassword'])
     if(this.newUser['confirm'] != this.newUser['newPassword']){
       this._interlink.errorArr.push("passwords do not match");
-    }
-    this._interlink.register(this.newUser,()=>{
       this.registrationErrors = this._interlink.errorArr;
-      this.registrationErrors.length == 0 ? this._router.navigate(['dashboard']) : this._router.navigate([''])
-    })
+      this._router.navigate([''])
+    }else{
+      this._interlink.register(this.newUser,()=>{
+        this.registrationErrors = this._interlink.errorArr;
+        this.registrationErrors.length == 0 ? this._router.navigate(['dashboard']) : this._router.navigate([''])
+      })
+    }
   }
 
   ngOnInit() {

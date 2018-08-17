@@ -4,16 +4,28 @@ var mongoose = require("mongoose"),
 
 module.exports = {
   //functions
-  loginUser: function (req, res) {
-    console.log("hi from controller", req.body.username, req.body.password);
-    User.create({ username: req.body.username, password: req.body.password }, function (err, user) {
-      console.log("user:", user)
-      req.session.username = user.username;
-      console.log("session-user:", req.session.username)
-      return res.json({ username: req.session.username, })
+  registerUser: function (req, res) {
+    //if user already exists, return
+    // if (User.findOne({ username: req.body.username })){
+    //   return res.json();
+    // }
+    User.create({ username: req.body.newUsername, password: req.body.newPassword,  first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email}, function (err, newuser) {
+      req.session.username = newuser.username;
+      return res.json({ username: req.session.username })
     })
   },
-
+  login: function (req, res) {
+    User.findOne({ username: req.body.username }, function (err, user) {
+      if(!user || err){ 
+        return res.json();
+      }
+      if (user.password == req.body.password) {
+        req.session.username = req.body.username;
+        return res.json(user)
+      };
+      return res.json();
+    })
+  },
   logout: function (req, res) {
     req.session.destroy();
     res.redirect('/');

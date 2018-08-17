@@ -3,13 +3,11 @@ var path = require('path');
 
 module.exports = function(app){
     
-    // app.get('/', function(req,res){
-    //     // res.render('index')
-    //     console.log("??")
-    // })
-    app.post('/loginUser', function(req, res){
-        console.log("in the routes");
-        home.loginUser(req, res)
+    app.post('/register',function(req,res){
+        home.registerUser(req,res);
+    })
+    app.post('/login', function(req, res){
+        home.login(req, res);
     })
     app.get('/logout', function(req,res){
         home.logout(req,res);

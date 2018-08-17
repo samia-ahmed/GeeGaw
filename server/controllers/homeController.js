@@ -6,7 +6,6 @@ module.exports = {
   //functions
   registerUser: function (req, res) {
     //if user already exists, return
-    console.log("in controller",req.body)
     User.findOne({ username: req.body.newUsername }, function (err, user) {
       //need to check email if no username exists
       if(!user){

@@ -47,9 +47,7 @@ export class InterlinkService {
   }
 
   checkSess(cb) {
-    console.log("checking session")
     this._http.get('/sess').subscribe((res) => {
-      console.log("back in session check")
       cb(res);
     })
   }

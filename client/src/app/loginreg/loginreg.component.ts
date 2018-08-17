@@ -51,18 +51,10 @@ export class LoginregComponent implements OnInit {
 
   register(){
     this.errorMessages = [];
-    console.log("in comp");
-    //if(first_name != this.nameRegex || last_name != this.nameRegex){
-      // this.errorMessage.push("names can only contain letters");
-    //}
-    //if(newPassword != this.mediumRegex){
-      // this.errorMessage.push("passwords must contain a lowercase, an uppercase and a number and be at least 6 characters long");
-    //}
     if(this.newUser['confirm'] != this.newUser['newPassword']){
       this._interlink.errorArr.push("passwords do not match");
     }
     this._interlink.register(this.newUser,()=>{
-      console.log("back in comp")
       this.registrationErrors = this._interlink.errorArr;
       this.registrationErrors.length == 0 ? this._router.navigate(['dashboard']) : this._router.navigate([''])
     })

@@ -13,6 +13,7 @@ export class LoginregComponent implements OnInit {
   newUser:object
   mediumRegex: RegExp
   errorMessages: string[] = []
+  registrationErrors: string[] = [] 
   nameRegex: RegExp
   constructor(private _interlink: InterlinkService, private _router: Router) {
     this.user={
@@ -28,6 +29,7 @@ export class LoginregComponent implements OnInit {
       confirm:''
     }
     this.errorMessages = [];
+    this.registrationErrors = [];
     //we don't have to use this, but its checking password strength
     this.mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
     this.nameRegex = new RegExp("^([a-z][A-Z])");
@@ -47,29 +49,27 @@ export class LoginregComponent implements OnInit {
     })
   }
 
-  // register(){
-    //!newUsername in db?
-      //kick back with error
-    //!email in db?
-      //kick back with error
-    //if(first_name <=2 || last_name <2){
-      // this.errorMessage.push("names must be at least two characters");
-    //}
+  register(){
+    this.errorMessages = [];
+    console.log("in comp");
     //if(first_name != this.nameRegex || last_name != this.nameRegex){
       // this.errorMessage.push("names can only contain letters");
     //}
     //if(newPassword != this.mediumRegex){
       // this.errorMessage.push("passwords must contain a lowercase, an uppercase and a number and be at least 6 characters long");
     //}
-    //if(confirm != password){
-      // this.errorMessage.push("passwords do not match");
-    //}
-    
-    //this.errorMessage.length <0 ? this._router.navigate(['dashboard']) : null
-  //}
+    if(this.newUser['confirm'] != this.newUser['newPassword']){
+      this._interlink.errorArr.push("passwords do not match");
+    }
+    this._interlink.register(this.newUser,()=>{
+      console.log("back in comp")
+      this.registrationErrors = this._interlink.errorArr;
+      this.registrationErrors.length == 0 ? this._router.navigate(['dashboard']) : this._router.navigate([''])
+    })
+  }
 
   ngOnInit() {
-    
+
   }
 
 }

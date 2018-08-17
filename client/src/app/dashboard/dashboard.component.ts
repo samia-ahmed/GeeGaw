@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
     })
   }
   ngOnInit() {
+    console.log("in dash")
     this.checkSess();
   }
 

@@ -21,7 +21,15 @@ export class InterlinkService {
   // }
 
   register(newUser, cb) {
+    console.log("in service");
+    this.errorMessage = null;
+    this.errorArr = [];
     this._http.post('/register', newUser).subscribe((res) => {
+      console.log("back in service",res)
+      if(res == null){
+        this.errorMessage = "The username or email you've entered already exists, please log in";
+        this.errorArr.push(this.errorMessage)
+      }
       cb(res)
     })
   }
@@ -39,7 +47,9 @@ export class InterlinkService {
   }
 
   checkSess(cb) {
+    console.log("checking session")
     this._http.get('/sess').subscribe((res) => {
+      console.log("back in session check")
       cb(res);
     })
   }

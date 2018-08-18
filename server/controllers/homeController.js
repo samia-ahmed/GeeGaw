@@ -11,7 +11,7 @@ module.exports = {
       if(!user){
         User.create({ username: req.body.newUsername, password: req.body.newPassword,  first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email}, function (err, newuser) {
           console.log("creating user",newuser)
-          req.session.username = req.body.newUsername;
+          req.session.user = newUser;
           return res.json(newuser)
         })
       }else{
@@ -27,7 +27,7 @@ module.exports = {
       }
       console.log("submitted password:",req.body.password,"| db password:",user.password)
       if (user.password == req.body.password) {
-        req.session.username = req.body.username;
+        req.session.user = user;
         return res.json(user)
       };
       return res.json();
@@ -39,10 +39,10 @@ module.exports = {
   },
   checkSess: function (req, res) {
     console.log("in ctrl, sess")
-    if (req.session.username == undefined) {
+    if (req.session.user == undefined) {
       return res.json({ username: null })
     }
-    return res.json({ username: req.session.username })
+    return res.json({ username: req.session.user.username })
   }
 
 } 

@@ -1,8 +1,8 @@
 <div class="container">
   <p>news feed loop</p>
-  <ul *ngFor="let user of allUsers" class="listgroup">
+  <ul *ngFor="let post of allPosts" class="listgroup">
     <li>
-      <p class="list-group-item">{{user.username}}</p>
+      <p class="list-group-item">{{post.caption}}</p>
     </li>
   </ul>
 </div>

@@ -3,19 +3,16 @@ var mongoose = require("mongoose"),
   Post = mongoose.model('Post');
 
 module.exports = {
-  //functions
+  //login-reg component functions
   registerUser: function (req, res) {
-    //if user already exists, return
     User.findOne({ username: req.body.newUsername }, function (err, user) {
       //need to check email if no username exists
       if (!user) {
-        User.create({ username: req.body.newUsername, password: req.body.newPassword, first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email }, function (err, newuser) {
-          console.log("creating user", newuser)
-          req.session.user = newUser;
+        User.create({ username: req.body.newUsername, password: req.body.newPassword, firstname: req.body.first_name, lastname: req.body.last_name, email: req.body.email }, function (err, newuser) {
+          req.session.user = newuser;
           return res.json(newuser)
         })
       } else {
-        console.log("user already exists", user)
         return res.json(null)
       }
     })
@@ -33,21 +30,40 @@ module.exports = {
       return res.json();
     })
   },
+  //dashboard component functions
+  updateFeed: function(req,res){
+    console.log('in controller')
+    User.findOne({_id:req.session.user._id}).exec(function(err,user){
+      //need to add user.following._post to return
+      console.log("user:",user);
+      let feed = user._post;
+      user.following.map(f => {
+        f.map(p => feed.push(p))
+      })
+      //need to sort by created_at
+      console.log("feed:",feed)
+      return res.json(feed);
+  })
+  },
+  //create component functions
   newPost: function (req, res) {
-    Post.create({caption:req.body.caption, creator:req.sessesion.user},function(err,post){
-      console.log("controlla", post)
-      return res.json(post)
+    User.findOne({ _id: req.session.user._id }, function (err, user) {
+      Post.create({ caption: req.body.caption, creator: user }, function (err, post) {
+        user._post.push((post._id))
+        user.save()
+        return res.json(post)
+      })
     })
   },
+  //general functions
   logout: function (req, res) {
     req.session.destroy();
     res.redirect('/');
   },
   checkSess: function (req, res) {
-    console.log("in ctrl, sess")
     if (req.session.user == undefined) {
-      return res.json({ username: null })
+      return res.json(null)
     }
-    return res.json({ username: req.session.user.username })
+    return res.json({ user: req.session.user })
   }
 } 

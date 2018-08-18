@@ -1,0 +1,9 @@
+<div class="container">
+  <p>Search users loop</p>
+  <ul *ngFor="let post of allPosts" class="listgroup">
+    <li>
+      <p class="list-group-item">{{post.caption}}</p>
+    </li>
+  </ul>
+</div>
+<app-footer></app-footer>

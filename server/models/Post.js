@@ -4,7 +4,7 @@ var mongoose = require("mongoose"),
     caption: String,
     image: { data: Buffer, contentType: String },
     likers: [{type: Schema.Types.ObjectId, ref: "Likers"}],
-    creator: Object
+    creator: {type: Schema.Types.ObjectId, ref: "Creator"}
   },{timestamps:true, usePushEach:true}) 
 
 mongoose.model('Post', PostSchema); 

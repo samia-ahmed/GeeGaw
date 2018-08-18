@@ -12,6 +12,8 @@ export class InterlinkService {
   // public modalRef: BsModalRef;
   errorMessage: string
   errorArr: string[] = []
+  newsFeed:object[]
+  feedArr:BehaviorSubject<any[]> = new BehaviorSubject([])
   constructor(private _http: HttpClient
     // ,private modalService: BsModalService
   ) {}
@@ -20,12 +22,11 @@ export class InterlinkService {
   //   this.modalRef = this.modalService.show(registration);
   // }
 
+  //login-reg component functions
   register(newUser, cb) {
-    console.log("in service");
     this.errorMessage = null;
     this.errorArr = [];
     this._http.post('/register', newUser).subscribe((res) => {
-      console.log("back in service",res)
       if(res == null){
         this.errorMessage = "The username or email you've entered already exists, please log in";
         this.errorArr.push(this.errorMessage)
@@ -33,7 +34,6 @@ export class InterlinkService {
       cb(res)
     })
   }
-
   login(user, cb) {
     this.errorMessage = null
     this.errorArr = []
@@ -45,16 +45,20 @@ export class InterlinkService {
       cb(res)
     })
   }
-
+  //dashboard component functions
+  updateNewsFeed(){
+    this._http.get('/updateFeed').subscribe((res)=>{
+      console.log(res)
+    })
+  }
+  //create component functions
   newPost(post,cb){
-    console.log("in service");
-    this._http.post('./new',post).subscribe((res)=>{
-      console.log("back in service");
+    this._http.post('/new',post).subscribe((res)=>{
       cb(res);
     })
   }
-
-  checkSess(cb) {
+  //general functions
+  checkSession(cb) {
     this._http.get('/sess').subscribe((res) => {
       cb(res);
     })

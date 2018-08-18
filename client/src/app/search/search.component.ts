@@ -3,11 +3,11 @@ import { InterlinkService } from '../interlink.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class SearchComponent implements OnInit {
   user: {
     username:string,
     _id:string,
@@ -15,13 +15,11 @@ export class DashboardComponent implements OnInit {
     likes:object[]
   }
   constructor(private _interlink:InterlinkService, private _router: Router) { }
-  
+
   ngOnInit() {
     this._interlink.checkSession((data) => {
-      console.log("data:",data)
       if (data) {
         this.user = data.user;
-        this._interlink.updateNewsFeed();
       } else {
         this._router.navigate(['/']);
       }

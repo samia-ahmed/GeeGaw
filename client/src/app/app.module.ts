@@ -21,6 +21,7 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FooterComponent } from './footer/footer.component';
 import { CreateComponent } from './create/create.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CreateComponent } from './create/create.component';
     LoginregComponent,
     DashboardComponent,
     FooterComponent,
-    CreateComponent
+    CreateComponent,
+    SearchComponent
   ],
   imports: [
     FormsModule,

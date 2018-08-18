@@ -58,6 +58,7 @@ export class LoginregComponent implements OnInit {
       this._router.navigate([''])
     }else{
       this._interlink.register(this.newUser,()=>{
+        console.log("back in comp | register")
         this.registrationErrors = this._interlink.errorArr;
         this.registrationErrors.length == 0 ? this._router.navigate(['dashboard']) : this._router.navigate([''])
       })

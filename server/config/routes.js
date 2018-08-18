@@ -15,6 +15,9 @@ module.exports = function(app){
     app.get('/sess', function(req,res){
         home.checkSess(req,res);
     })
+    app.get('/new', function(req,res){
+        home.newPost(req,res);
+    })
 
     //is this supposed to be app.all instead of app.get?
     app.all('*', function(req,res){

@@ -1,15 +1,10 @@
 var mongoose = require("mongoose"), 
-
   Schema = mongoose.Schema, 
-
   PostSchema = new Schema({ 
-
-    id: Number,
     caption: String,
     image: { data: Buffer, contentType: String },
-    likers: [],
-    poster: Object
-
-  }) 
+    likers: [{type: Schema.Types.ObjectId, ref: "Likers"}],
+    creator: Object
+  },{timestamps:true, usePushEach:true}) 
 
 mongoose.model('Post', PostSchema); 

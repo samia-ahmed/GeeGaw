@@ -46,6 +46,14 @@ export class InterlinkService {
     })
   }
 
+  newPost(post,cb){
+    console.log("in service");
+    this._http.post('./new',post).subscribe((res)=>{
+      console.log("back in service");
+      cb(res);
+    })
+  }
+
   checkSess(cb) {
     this._http.get('/sess').subscribe((res) => {
       cb(res);

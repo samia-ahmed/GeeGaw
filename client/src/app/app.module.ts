@@ -20,13 +20,15 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FooterComponent } from './footer/footer.component';
+import { CreateComponent } from './create/create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginregComponent,
     DashboardComponent,
-    FooterComponent
+    FooterComponent,
+    CreateComponent
   ],
   imports: [
     FormsModule,

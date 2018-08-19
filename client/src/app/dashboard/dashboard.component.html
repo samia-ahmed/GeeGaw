@@ -1,9 +1,39 @@
 <div class="container">
-  <p>news feed loop</p>
-  <ul *ngFor="let post of allPosts" class="listgroup">
+  <!-- temporary div to keep track of what we need to do, will delete before production, or move to developer to do list page once dashboard is working properly. -->
+  <div class="temp">
+    <h2>Developer To Do List:</h2>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <input type="checkbox" name="first">
+        <label for="first"> grab all posts of following and self</label>
+      </li>
+      <li class="list-group-item">
+        <input type="checkbox" name="todo">
+        <label for="second"> fix showAll:Search page to hide follow link if already following</label>
+      </li>
+      <li class="list-group-item">
+        <input type="checkbox" name="third">
+        <label for="third"> Upload images to DB through Create page</label>
+      </li>
+      <li class="list-group-item">
+        <input type="checkbox" name="fourth">
+        <label for="fourth"> add email check to registration in controller</label>
+      </li>
+      <li class="list-group-item">
+        <input type="checkbox" name="fifth">
+        <label for="fifth"> clean up follow route(search page), change from get route with params to function path</label>
+      </li>
+      <li class="list-group-item">
+        <input type="checkbox" name="sixth">
+        <label for="sixth"> clean up getAll route(search page), behaviorsubjects are not being used</label>
+      </li>
+    </ul>
+  </div>
+
+  <!-- <ul *ngFor="let post of allPosts" class="listgroup">
     <li>
       <p class="list-group-item">{{post.caption}}</p>
     </li>
-  </ul>
+  </ul> -->
 </div>
 <app-footer></app-footer>

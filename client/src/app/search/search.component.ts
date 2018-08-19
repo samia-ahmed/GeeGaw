@@ -12,14 +12,29 @@ export class SearchComponent implements OnInit {
     username:string,
     _id:string,
     following:object[],
-    likes:object[]
+    likes:object[],
+    firstname:string,
+    lastname:string
   }
+  allUsers: object[] =[]
   constructor(private _interlink:InterlinkService, private _router: Router) { }
-
+  // follow(id){
+  //   this._interlink.follow(id,(cb=>{
+  //       console.log("back in comp")
+  //       this._router.navigate(['search']);
+  //     }))
+  // }
   ngOnInit() {
     this._interlink.checkSession((data) => {
       if (data) {
         this.user = data.user;
+        this._interlink.getUsers(cb =>{
+            this.allUsers = this._interlink.usersArr;
+            console.log("component users:",this.allUsers)
+        });
+        //   .subscribe(res=>{
+        //   this.allUsers = res;
+        // });
       } else {
         this._router.navigate(['/']);
       }

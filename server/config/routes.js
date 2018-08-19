@@ -12,8 +12,14 @@ module.exports = function(app){
     app.post('/new', function(req,res){
         home.newPost(req,res);
     })
+    app.get('/follow/:id', function(req,res){
+        home.follow(req,res);
+    })
     app.get('/updateFeed', function(req,res){
         home.updateFeed(req,res);
+    })
+    app.get('/allUsers',function(req,res){
+        home.allUsers(req,res);
     })
     app.get('/logout', function(req,res){
         home.logout(req,res);

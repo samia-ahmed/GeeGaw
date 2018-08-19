@@ -1,8 +1,20 @@
 <div class="container">
-  <p>Search users loop</p>
-  <ul *ngFor="let post of allPosts" class="listgroup">
-    <li>
-      <p class="list-group-item">{{post.caption}}</p>
+  <h3>All users [need to add search bar]</h3>
+  <ul *ngFor="let u of allUsers" class="list-group list-group-flush">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          <h5>{{u.username}}</h5>
+          <p>{{u.firstname}} {{u.lastname}}</p>
+          <a *ngIf="u._id == user._id; else elseBlock" class="text-secondary">You</a>
+          <ng-template #elseBlock>
+            <div *ngFor="let follower of u.followers">
+              <p *ngIf="follower == user._id" class="text-secondary">Following</p>
+            </div>
+            <a href="/follow/{{u._id}}">Follow</a>
+          </ng-template>
+        </div>
+      </div>
     </li>
   </ul>
 </div>

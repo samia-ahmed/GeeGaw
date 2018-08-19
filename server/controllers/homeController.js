@@ -37,19 +37,39 @@ module.exports = {
       //need to add user.following._post to return
       console.log("user:",user);
       let feed = user._post;
-      user.following.map(f => {
-        f.map(p => feed.push(p))
-      })
-      //need to sort by created_at
+      // user.following.map(f => {
+      //   console.log("following==",f)
+      //   // f.map(p => feed.push(p))
+      // })
+      // //need to sort by created_at
       console.log("feed:",feed)
       return res.json(feed);
   })
+  },
+  //search component functions
+  allUsers: function(req,res){
+    User.find({}, function(err,users){
+      return res.json({users:users})
+    })
+  },
+  follow: function(req,res){
+    console.log("params:",req.params.id)
+    User.findOne({_id:req.session.user._id}, function(err,user){
+      User.findOne({_id:req.params.id},function(err,other){
+        user.following.push(other);
+        user.save()
+        other.followers.push(user);
+        other.save()
+        console.log("user:",user,"||| other user:",other)
+        res.redirect('/search')
+      })
+    })
   },
   //create component functions
   newPost: function (req, res) {
     User.findOne({ _id: req.session.user._id }, function (err, user) {
       Post.create({ caption: req.body.caption, creator: user }, function (err, post) {
-        user._post.push((post._id))
+        user._post.push((post))
         user.save()
         return res.json(post)
       })

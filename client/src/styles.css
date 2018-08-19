@@ -4,8 +4,6 @@
     margin:0;
     padding:0;
 }
-/* html{
-    margin-bottom:-20px;
-    padding:-20px;
-    bottom: -20px;
-} */
+.container{
+    margin-bottom:60px;
+}

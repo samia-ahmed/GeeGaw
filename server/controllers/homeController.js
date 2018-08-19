@@ -67,8 +67,11 @@ module.exports = {
   },
   //create component functions
   newPost: function (req, res) {
+    console.log("image",req.body.image)
     User.findOne({ _id: req.session.user._id }, function (err, user) {
-      Post.create({ caption: req.body.caption, creator: user }, function (err, post) {
+      Post.create({ caption: req.body.caption, image:req.body.image, creator: user }, function (err, post) {
+        // post.img.data = fs.readFileSync(req.files.userPhoto.path)
+        // post.img.contentType = 'image/png' || 'image/jpg';
         user._post.push((post))
         user.save()
         return res.json(post)

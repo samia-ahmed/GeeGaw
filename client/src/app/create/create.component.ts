@@ -16,6 +16,7 @@ export class CreateComponent implements OnInit {
   }
   constructor(private _interlink: InterlinkService, private _router: Router) { 
     this.newPost = {
+      image:Object,
       caption:''
     }
   }

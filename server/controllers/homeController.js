@@ -53,7 +53,7 @@ module.exports = {
     })
   },
   follow: function(req,res){
-    console.log("params:",req.params.id)
+    console.log("id:",req.params.id)
     User.findOne({_id:req.session.user._id}, function(err,user){
       User.findOne({_id:req.params.id},function(err,other){
         user.following.push(other);
@@ -61,7 +61,7 @@ module.exports = {
         other.followers.push(user);
         other.save()
         console.log("user:",user,"||| other user:",other)
-        res.redirect('/search')
+        res.json()
       })
     })
   },

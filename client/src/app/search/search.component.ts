@@ -18,12 +18,9 @@ export class SearchComponent implements OnInit {
   }
   allUsers: object[] =[]
   constructor(private _interlink:InterlinkService, private _router: Router) { }
-  // follow(id){
-  //   this._interlink.follow(id,(cb=>{
-  //       console.log("back in comp")
-  //       this._router.navigate(['search']);
-  //     }))
-  // }
+  follow(id){
+    this._interlink.follow(id);
+  }
   ngOnInit() {
     this._interlink.checkSession((data) => {
       if (data) {

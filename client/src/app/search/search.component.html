@@ -8,10 +8,10 @@
           <p>{{u.firstname}} {{u.lastname}}</p>
           <a *ngIf="u._id == user._id; else elseBlock" class="text-secondary">You</a>
           <ng-template #elseBlock>
+            <button class="btn btn-info" (click)="follow(u._id)">Follow</button>
             <div *ngFor="let follower of u.followers">
-              <p *ngIf="follower == user._id" class="text-secondary">Following</p>
+              <button *ngIf="follower == user._id" class="btn btn-outline-secondary" disabled>Following</button>
             </div>
-            <a href="/follow/{{u._id}}">Follow</a>
           </ng-template>
         </div>
       </div>

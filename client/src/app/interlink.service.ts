@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'Rxjs';
+import { Router } from '@angular/router';
 
 import { TemplateRef } from '@angular/core';
-import { calcBindingFlags } from '../../node_modules/@angular/core/src/view/util';
 // import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class InterlinkService {
   feedArr:BehaviorSubject<any[]> = new BehaviorSubject([])
   usersArr:object[]
   allUsers:BehaviorSubject<any[]> = new BehaviorSubject([])
-  constructor(private _http: HttpClient
+  constructor(private _http: HttpClient,private _router: Router
     // ,private modalService: BsModalService
   ) {}
 
@@ -63,13 +63,13 @@ export class InterlinkService {
       cb();
     })
   }
-  // follow(id,cb){
-  //   console.log("follow-service")
-  //   this._http.post('/follow', id).subscribe((res)=>{
-  //     console.log("follow-back in service")
-  //     cb();
-  //   })
-  // }
+  follow(id){
+    console.log("follow-service")
+    this._http.get('/follow/'+id).subscribe((res)=>{
+      console.log("follow-back in service")
+      this._router.navigate(['search'])
+    })
+  }
   //create component functions
   newPost(post,cb){
     this._http.post('/new',post).subscribe((res)=>{

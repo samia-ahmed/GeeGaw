@@ -35,14 +35,14 @@ module.exports = {
     console.log('in controller')
     User.findOne({_id:req.session.user._id}).exec(function(err,user){
       //need to add user.following._post to return
-      console.log("user:",user);
+      // console.log("user:",user);
       let feed = user._post;
-      // user.following.map(f => {
-      //   console.log("following==",f)
-      //   // f.map(p => feed.push(p))
+      // user.following.find({}).sort('-created_at').exec(function(err,following){
+      //   console.log("controller-following:",following._post)
+        
+      //   console.log("feed:",feed)
+
       // })
-      // //need to sort by created_at
-      console.log("feed:",feed)
       return res.json(feed);
   })
   },

@@ -3,27 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'Rxjs';
 import { Router } from '@angular/router';
 
-import { TemplateRef } from '@angular/core';
-// import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-
 @Injectable({
   providedIn: 'root'
 })
 export class InterlinkService {
-  // public modalRef: BsModalRef;
   errorMessage: string
   errorArr: string[] = []
   newsFeed:object[]
   feedArr:BehaviorSubject<any[]> = new BehaviorSubject([])
   usersArr:object[]
   allUsers:BehaviorSubject<any[]> = new BehaviorSubject([])
-  constructor(private _http: HttpClient,private _router: Router
-    // ,private modalService: BsModalService
-  ) {}
-
-  // public openModal(registration: TemplateRef<any>) {
-  //   this.modalRef = this.modalService.show(registration);
-  // }
+  constructor(private _http: HttpClient,private _router: Router) {}
 
   //login-reg component functions
   register(newUser, cb) {

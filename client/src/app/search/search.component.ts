@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { InterlinkService } from '../interlink.service';
 import { Router } from '@angular/router';
 
@@ -8,32 +8,51 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  user: {
-    username:string,
-    _id:string,
-    following:object[],
-    likes:object[],
-    firstname:string,
-    lastname:string
+  currentUser: {
+    _id: string,
+    username: string
+    firstname: string
+    lastname: string
+    following: object[]
+    likes: object[]
   }
-  allUsers: object[] =[]
-  constructor(private _interlink:InterlinkService, private _router: Router) { }
-  follow(id){
+  allUsers: object[] = []
+  constructor(private _interlink: InterlinkService, private _router: Router) {
+    this.currentUser = {
+      _id:'',
+      username:"",
+      firstname: '',
+      lastname: '',
+      following:[],
+      likes:[]
+    }
+  }
+  
+
+
+  follow(id) {
     this._interlink.follow(id);
   }
   ngOnInit() {
     this._interlink.checkSession((data) => {
       if (data) {
-        this.user = data.user;
-        this._interlink.getUsers(cb =>{
-            this.allUsers = this._interlink.usersArr;
-            console.log("component users:",this.allUsers)
+        console.log("data:",data)
+        this.currentUser = data.user;
+        this._interlink.getUsers(cb => {
+          for(let user of this._interlink.usersArr){
+            console.log("user:",user)
+            if(user['_id'] == this.currentUser._id){
+              continue;
+            }
+            this.allUsers.push(user);
+          };
+          console.log("component users:", this.allUsers);
         });
         //   .subscribe(res=>{
         //   this.allUsers = res;
         // });
       } else {
-        this._router.navigate(['/']);
+        this._router.navigate(['']);
       }
     })
   }

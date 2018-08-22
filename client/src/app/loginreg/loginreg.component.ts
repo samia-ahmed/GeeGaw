@@ -18,6 +18,7 @@ export class LoginregComponent implements OnInit {
   newUser: object
   mediumRegex: RegExp
   errorMessages: string[] = []
+  registrationErrors: string[] = []
   nameRegex: RegExp
   constructor(private _interlink: InterlinkService, private _router: Router, 
     private modalService: BsModalService) {
@@ -34,6 +35,7 @@ export class LoginregComponent implements OnInit {
       confirm: ''
     }
     this.errorMessages = [];
+    this.registrationErrors = []
     //we don't have to use this, but its checking password strength
     this.mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
     this.nameRegex = new RegExp("^([a-z][A-Z])");
@@ -59,25 +61,29 @@ export class LoginregComponent implements OnInit {
     console.log("passwords", this.newUser['confirm'], this.newUser['newPassword'])
     if (this.newUser['first_name'] == '' || this.newUser['last_name'] == '' || this.newUser['newUsername'] == '' || this.newUser['email'] == '' || this.newUser['newPassword'] == '') {
       this._interlink.errorArr.push("Fields cannot be blank");
-      this.errorMessages = this._interlink.errorArr;
+      this.registrationErrors = this._interlink.errorArr;
     }
     if (this.newUser['confirm'] != this.newUser['newPassword']) {
       this._interlink.errorArr.push("passwords do not match");
-      this.errorMessages = this._interlink.errorArr;
+      this.registrationErrors = this._interlink.errorArr;
     }
-    if (this.errorMessages.length > 0) {
+    if (this.registrationErrors.length > 0) {
       this._router.navigate(['']);
     } else {
       this._interlink.register(this.newUser, () => {
         console.log("back in comp | register")
-        this.errorMessages = this._interlink.errorArr;
-        this._router.navigate(['dashboard'])
+        this.registrationErrors = this._interlink.errorArr;
+        this.errorMessages = this.registrationErrors;
+        this.errorMessages.length > 0 ? this._router.navigate(['']) : this._router.navigate(['dashboard']);
       })
     }
   }
 
   ngOnInit() {
-
+    this.registrationErrors.map(e =>{
+      console.log('e:',e)
+      this.errorMessages.push(e)
+    })
   }
 
 }

@@ -5,18 +5,24 @@ var mongoose = require("mongoose"),
 module.exports = {
   //login-reg component functions
   registerUser: function (req, res) {
-    User.findOne({ username: req.body.newUsername }, function (err, user) {
-      //need to check email if no username exists
-      if (!user) {
-        User.create({ username: req.body.newUsername, password: req.body.newPassword, firstname: req.body.first_name, lastname: req.body.last_name, email: req.body.email }, function (err, newuser) {
-          req.session.user = newuser;
-          return res.json(newuser)
-        })
-      } else {
+    User.findOne({ username: req.body.newUsername },function(err, user){
+      if(!user){
+        User.findOne({ email: req.body.email },function(err, user2){
+          if(!user2){
+            User.create({ username: req.body.newUsername, password: req.body.newPassword, firstname: req.body.first_name, lastname: req.body.last_name, email: req.body.email }, function (err, newuser) {
+              req.session.user = newuser;
+              return res.json(newuser);
+            });
+          }else{
+            return res.json(null)
+          }//end second find
+        })//end second find
+      }else{
         return res.json(null)
-      }
-    })
-  },
+      }//end first if
+    })//end first findOne function
+  }, //end registerfunction
+  
   login: function (req, res) {
     User.findOne({ username: req.body.username }, function (err, user) {
       if (!user || err) {
@@ -31,45 +37,45 @@ module.exports = {
     })
   },
   //dashboard component functions
-  updateFeed: function(req,res){
+  updateFeed: function (req, res) {
     console.log('in controller')
-    User.findOne({_id:req.session.user._id}).exec(function(err,user){
+    User.findOne({ _id: req.session.user._id }).exec(function (err, user) {
       //need to add user.following._post to return
       // console.log("user:",user);
       let feed = user._post;
       // user.following.find({}).sort('-created_at').exec(function(err,following){
       //   console.log("controller-following:",following._post)
-        
+
       //   console.log("feed:",feed)
 
       // })
       return res.json(feed);
-  })
-  },
-  //search component functions
-  allUsers: function(req,res){
-    User.find({}, function(err,users){
-      return res.json({users:users})
     })
   },
-  follow: function(req,res){
-    console.log("id:",req.params.id)
-    User.findOne({_id:req.session.user._id}, function(err,user){
-      User.findOne({_id:req.params.id},function(err,other){
+  //search component functions
+  allUsers: function (req, res) {
+    User.find({}, function (err, users) {
+      return res.json({ users: users })
+    })
+  },
+  follow: function (req, res) {
+    console.log("id:", req.params.id)
+    User.findOne({ _id: req.session.user._id }, function (err, user) {
+      User.findOne({ _id: req.params.id }, function (err, other) {
         user.following.push(other);
         user.save()
         other.followers.push(user);
         other.save()
-        console.log("user:",user,"||| other user:",other)
+        console.log("user:", user, "||| other user:", other)
         res.json()
       })
     })
   },
   //create component functions
   newPost: function (req, res) {
-    console.log("image",req.body.image)
+    console.log("image", req.body.image)
     User.findOne({ _id: req.session.user._id }, function (err, user) {
-      Post.create({ caption: req.body.caption, image:req.body.image, creator: user }, function (err, post) {
+      Post.create({ caption: req.body.caption, image: req.body.image, creator: user }, function (err, post) {
         // post.img.data = fs.readFileSync(req.files.userPhoto.path)
         // post.img.contentType = 'image/png' || 'image/jpg';
         user._post.push((post))

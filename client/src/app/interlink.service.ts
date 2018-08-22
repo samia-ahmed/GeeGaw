@@ -38,12 +38,14 @@ export class InterlinkService {
       cb(res)
     })
   }
+
   //dashboard component functions
   updateNewsFeed(){
     this._http.get('/updateFeed').subscribe((res)=>{
-      console.log(res)
+      console.log("updating feed:",res)
     })
   }
+
   //search component functions
   getUsers(cb){
     this._http.get('/allUsers').subscribe((res)=>{
@@ -60,12 +62,14 @@ export class InterlinkService {
       this._router.navigate(['search'])
     })
   }
+
   //create component functions
   newPost(post,cb){
     this._http.post('/new',post).subscribe((res)=>{
       cb(res);
     })
   }
+
   //general functions
   checkSession(cb) {
     this._http.get('/sess').subscribe((res) => {

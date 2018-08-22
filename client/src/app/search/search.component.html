@@ -9,11 +9,11 @@
     <li class="list-group-item" *ngFor="let u of allUsers">
       <h5>{{u.username}}</h5>
       <p>{{u.firstname}} {{u.lastname}}</p>
-      <button *ngIf="u.followers.length==0" class="btn btn-info" (click)="follow(u._id)">Follow</button>
-      <div *ngFor="let follower of u.followers">
-        <button *ngIf="follower != currentUser._id" class="btn btn-info" (click)="follow(u._id)">Follow</button>
-        <button *ngIf="follower == currentUser._id" class="btn btn-outline-secondary" disabled>Following</button>
-      </div>
+      <button *ngIf="u.followers.length==0; else elseBlock" class="btn btn-info" (click)="follow(u._id)">Follow</button>
+      <ng-template #elseBlock>
+        <button *ngIf="u.followers == true;" class="btn btn-outline-secondary" disabled>Following</button>
+        <button *ngIf="u.followers == false;" class="btn btn-info" (click)="follow(u._id)">Follow</button>
+      </ng-template>
     </li>
   </ul>
 </div>

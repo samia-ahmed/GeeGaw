@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this._interlink.checkSession((data) => {
-      console.log("data:", data)
       if (data) {
         this.user = data.user;
         this._interlink.updateNewsFeed();

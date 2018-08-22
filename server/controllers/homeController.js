@@ -15,17 +15,17 @@ module.exports = {
             });
           }else{
             return res.json(null)
-          }//end second find
-        })//end second find
+          }
+        })
       }else{
         return res.json(null)
-      }//end first if
-    })//end first findOne function
-  }, //end registerfunction
+      }
+    })
+  }, 
   
   login: function (req, res) {
     User.findOne({ username: req.body.username }, function (err, user) {
-      if (!user || err) {
+      if (!user) {
         return res.json();
       }
       console.log("submitted password:", req.body.password, "| db password:", user.password)
@@ -40,16 +40,16 @@ module.exports = {
   updateFeed: function (req, res) {
     console.log('in controller')
     User.findOne({ _id: req.session.user._id }).exec(function (err, user) {
-      //need to add user.following._post to return
-      // console.log("user:",user);
+      console.log("feed:", user._post)
       let feed = user._post;
-      // user.following.find({}).sort('-created_at').exec(function(err,following){
-      //   console.log("controller-following:",following._post)
-
-      //   console.log("feed:",feed)
-
-      // })
-      return res.json(feed);
+      for(let following of user.following){
+        console.log("following-posts",following) //this is just an id, not an object. Why? Need to link to object and following two lines will work
+        // for(let post of following._post){
+        //   feed.push(post);
+        // }
+      }
+      console.log("controller-feed:",feed);
+      return res.json(feed); 
     })
   },
   //search component functions
@@ -58,7 +58,7 @@ module.exports = {
       return res.json({ users: users })
     })
   },
-  follow: function (req, res) {
+  follow: function (req, res) { //need to look at this function and models to figure out why only the id is being saved to the model, not the whole object. 
     console.log("id:", req.params.id)
     User.findOne({ _id: req.session.user._id }, function (err, user) {
       User.findOne({ _id: req.params.id }, function (err, other) {

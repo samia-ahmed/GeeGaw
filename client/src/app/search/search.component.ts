@@ -36,17 +36,26 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this._interlink.checkSession((data) => {
       if (data) {
-        console.log("data:",data)
+        // console.log("data:",data)
         this.currentUser = data.user;
         this._interlink.getUsers(cb => {
           for(let user of this._interlink.usersArr){
-            console.log("user:",user)
+            // console.log("user:",user)
             if(user['_id'] == this.currentUser._id){
               continue;
             }
+            for(let follower of user['followers']){
+              if(follower == this.currentUser._id){
+                user['followers'] = true;
+                // console.log("user-in loop/if:",user);
+                break;
+              }
+              user['followers'] = false;
+              // console.log("user-in loop:",user);
+            }
             this.allUsers.push(user);
           };
-          console.log("component users:", this.allUsers);
+          // console.log("component users:", this.allUsers);
         });
         //   .subscribe(res=>{
         //   this.allUsers = res;

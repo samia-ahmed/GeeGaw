@@ -9,7 +9,7 @@ var mongoose = require("mongoose"),
     followers: [{type: Schema.Types.ObjectId, ref: "User"}], 
     following: [{type: Schema.Types.ObjectId, ref: "User"}],
     likes: [{type: Schema.Types.ObjectId, ref: "User"}],
-    _post: [{type: Schema.Types.ObjectId, ref: "Posts"}]
+    posts: [{type: Schema.Types.ObjectId, ref: "Post"}]
   },{usePushEach:true}) 
 
 mongoose.model('User', UserSchema); 

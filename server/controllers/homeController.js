@@ -48,15 +48,19 @@ module.exports = {
   updateFeed: function (req, res) {
     User.findOne({ _id: req.session.user._id }).exec(function (err, user) {
       if (err) { return handleError(err) };
-      console.log("feed:", user._post)
-      let feed = user._post;
+      // console.log("user:", user)
+      let feed = []
+      for(let post of user.posts){
+        feed.push(post);
+      }
+      // console.log(feed)
       for(let following of user.following){
-        console.log("following-posts",following) //this is just an id, not an object. Why? Need to link to object and following two lines will work
-        // for(let post of following._post){
+        // console.log("following-posts",following) //this is just an id, not an object. Why? Need to link to object and following two lines will work
+        // for(let post of following.posts){
         //   feed.push(post);
         // }
       }
-      console.log("controller-feed:",feed);
+      // console.log("controller-feed:",feed);
       return res.json(feed); 
     })
   },
@@ -85,14 +89,14 @@ module.exports = {
   //create component functions
   newPost: function (req, res) {
     // console.log("image", req.body.image)
-    User.findOne({ _id: req.session.user._id }).exec(function (err, user) {
-      if (err) { return handleError(err)};
-      //post validations go here
-      Post.create({ caption: req.body.caption, image: req.body.image, creator: user._id },function (error, post) {
-        if (error) { return handleError(err)};
+    //post validations go here
+    Post.create({ caption: req.body.caption, image: req.body.image, creator: req.session.user._id},function (error, post) {
+      if (error) { return handleError(error)};
+      User.findOne({ _id: req.session.user._id }).populate('Post').exec(function (err, user) {
+        if (err) { return handleError(err)};
         console.log("newPost-post:",post);
         console.log("                                   ")
-        user._post.push(post) //why is this only pushing the ID?
+        user.posts.push(post)
         user.save()
         console.log("newPost-UPDATED user:",user)
         return res.json(post)

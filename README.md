@@ -8,4 +8,4 @@ Just like the instagram, GeeGaw is built around a "news feed" style get-all api 
 The biggest challenge of the project is letting users upload photos and control those photos in terms of size.
 
 ### Additional Features
-Once the essential structure is built we plan on adding search features. 
+Once the essential structure is built we plan on adding search features, settings, profile management and eventually a chat.

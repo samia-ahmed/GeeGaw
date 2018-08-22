@@ -6,6 +6,12 @@ const express = require("express"),
   dotenv = require("dotenv").config(),
   session = require("express-session");
 
+// let multer = require('multer');
+// // set the directory for the uploads to the uploaded to
+// let DIR = './uploads/';
+// //define the type of upload multer would be doing and pass in its destination, in our case, its a single file with the name photo
+// let upload = multer({ dest: DIR }).single('photo');
+
 app.use(express.static(path.join(__dirname, "/client/dist/client")));
 app.use(bP.json());
 app.use(session({ secret: process.env.secret_key, saveUninitialized: true }));

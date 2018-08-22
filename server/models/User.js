@@ -1,14 +1,14 @@
 var mongoose = require("mongoose"), 
   Schema = mongoose.Schema, 
   UserSchema = new Schema({ 
-    firstname: String,
-    lastname:String,
-    email: String,
-    username: String,
-    password: String,
-    followers: [{type: Schema.Types.ObjectId, ref: "Followers"}], 
-    following: [{type: Schema.Types.ObjectId, ref: "Following"}],
-    likes: [{type: Schema.Types.ObjectId, ref: "Likes"}],
+    firstname: {type:String,required:true},
+    lastname:{type:String,required:true},
+    email: {type:String,required:true},
+    username: {type:String,required:true},
+    password: {type:String,required:true},
+    followers: [{type: Schema.Types.ObjectId, ref: "User"}], 
+    following: [{type: Schema.Types.ObjectId, ref: "User"}],
+    likes: [{type: Schema.Types.ObjectId, ref: "User"}],
     _post: [{type: Schema.Types.ObjectId, ref: "Posts"}]
   },{usePushEach:true}) 
 

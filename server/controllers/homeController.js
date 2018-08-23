@@ -52,22 +52,24 @@ module.exports = {
       for(posts of myposts){
         feed.push(posts)
       }
-      // User.findOne({_id:req.session.user._id}).populate("following").exec(function(err,user){
-      //   for(let friend of user.following){
-      //     console.log("friend:",friend)
-      //     Post.find({creator:friend._id}).populate('creator').exec(function(err,friendposts){
-      //       // console.log(friend.username,"'s posts",friendposts)
-      //       for(p of friendposts){
-      //         feed.push(p)
-      //       }
-      //       if(friend.next == null){
-      //         // console.log("loop-feed",feed)
-      //         res.json(feed)
-      //       }
-      //     })
-      //   }
-      // })
-      res.json(feed)
+      User.findOne({_id:req.session.user._id}).populate("following").exec(function(err,user){
+        console.log("inside User function")
+        for(let friend of user.following){
+          console.log("inside outer loop")
+          Post.find({creator:friend._id}).populate('creator').exec(function(err,friendposts){
+            console.log("inside Post function (inside outer-loop)")
+            // console.log(friend.username,"'s posts",friendposts)
+            for(p of friendposts){
+              console.log("inside inner loop")
+              feed.push(p)
+            }
+            console.log("after inner loop, inside Post Function")
+            // res.json(feed)
+          })
+          console.log("back to outer loop")
+        }
+        console.log("res.json")
+      })
     })
   },
   //search component functions

@@ -5,6 +5,6 @@ var mongoose = require("mongoose"),
     image: { data: Buffer, contentType: String },
     likers: [{type: Schema.Types.ObjectId, ref: "User"}],
     creator: {type: Schema.Types.ObjectId, ref: "User"}
-  },{timestamps:true, usePushEach:true}) 
+  },{timestamps:true, usePushEach:true})  
 
 mongoose.model('Post', PostSchema); 

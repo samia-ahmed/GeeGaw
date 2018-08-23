@@ -47,6 +47,14 @@
         <input type="checkbox" name="eleventh">
         <label for="eleventh">add pattern validation to registration for email and first-letter-capitals for name</label>
       </li>
+      <li class="list-group-item">
+        <input type="checkbox" name="twelfth">
+        <label for="twelfth">populate creator so dashboard can display the creator name</label>
+      </li>
+      <li class="list-group-item">
+        <input type="checkbox" name="thirteenth">
+        <label for="thirteenth">sort post array by createdAt</label>
+      </li>
       
       <h3>Pages/Components</h3>
       <li class="list-group-item">
@@ -64,10 +72,16 @@
     </ul>
   </div>
 
-  <!-- <ul *ngFor="let post of allPosts" class="listgroup">
-    <li>
-      <p class="list-group-item">{{post.caption}}</p>
-    </li>
-  </ul> -->
+  <div>
+    <h3 class="display-3">News Feed</h3>
+    <ul *ngFor="let post of newsfeed" class="listgroup">
+      <li class="list-group-item">
+        <h5>{{post.creator.username}}</h5>
+        <img src="assets/images/working.jpg" class="img-fluid" alt="Responsive image">
+        <p>{{post.caption}}</p>
+        <p>{{post.createdAt | date  : 'short'}}</p>
+      </li>
+    </ul>
+  </div>
 </div>
 <app-footer></app-footer>

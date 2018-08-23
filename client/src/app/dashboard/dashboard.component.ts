@@ -14,13 +14,18 @@ export class DashboardComponent implements OnInit {
     following: object[],
     likes: object[]
   }
+  newsfeed:object[]
   constructor(private _interlink: InterlinkService, private _router: Router) {}
 
   ngOnInit() {
     this._interlink.checkSession((data) => {
       if (data) {
         this.user = data.user;
-        this._interlink.updateNewsFeed();
+        this._interlink.updateNewsFeed((cb)=>{
+          this.newsfeed = this._interlink.newsFeed;
+          //sort array by createdAt
+        });
+        
       } else {
         this._router.navigate(['/']);
       }

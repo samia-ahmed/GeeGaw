@@ -2,87 +2,93 @@ var mongoose = require("mongoose"),
   User = mongoose.model('User'),
   Post = mongoose.model('Post');
 
+let feed = [];
+
 module.exports = {
   //login-reg component functions
   registerUser: function (req, res) {
-    User.findOne({ username: req.body.newUsername },function(err, user){
-      if(err){
-        console.log("error:",err);
-        for(let key in err.errors){
-          req.flash('registration',err.errors[key].message)
+    User.findOne({ username: req.body.newUsername }, function (err, user) {
+      if (err) {
+        console.log("error:", err);
+        for (let key in err.errors) {
+          req.flash('registration', err.errors[key].message)
         }
         res.redirect('/');
       }
-      if(!user){
-        User.findOne({ email: req.body.email },function(err, user2){
-          if(!user2){
+      if (!user) {
+        User.findOne({ email: req.body.email }, function (err, user2) {
+          if (!user2) {
             User.create({ username: req.body.newUsername, password: req.body.newPassword, firstname: req.body.first_name, lastname: req.body.last_name, email: req.body.email }, function (err, newuser) {
               req.session.user = newuser;
               return res.json(newuser);
             });
-          }else{
+          } else {
             return res.json(null)
           }
         })
-      }else{
+      } else {
         return res.json(null)
       }
     })
-  }, 
-  
+  },
+
   login: function (req, res) {
     User.findOne({ username: req.body.username }, function (err, user) {
-      if (err) { return handleError(err) };
+      if (err) { return console.log(err) };
       if (!user) {
-        return res.json();
+        return res.json(null);
       }
       console.log("submitted password:", req.body.password, "| db password:", user.password)
       if (user.password == req.body.password) {
         req.session.user = user;
         return res.json(user)
       };
-      return res.json();
+      return res.json(null);
     })
   },
   //dashboard component functions
   updateFeed: function (req, res) {
-    User.findOne({ _id: req.session.user._id }).exec(function (err, user) {
-      if (err) { return handleError(err) };
-      // console.log("user:", user)
-      let feed = []
-      for(let post of user.posts){
-        feed.push(post);
+    Post.find({creator:req.session.user._id}).populate('creator').exec(function(err,myposts){
+      for(posts of myposts){
+        feed.push(posts)
       }
-      // console.log(feed)
-      for(let following of user.following){
-        // console.log("following-posts",following) //this is just an id, not an object. Why? Need to link to object and following two lines will work
-        // for(let post of following.posts){
-        //   feed.push(post);
-        // }
-      }
-      // console.log("controller-feed:",feed);
-      return res.json(feed); 
+      // User.findOne({_id:req.session.user._id}).populate("following").exec(function(err,user){
+      //   for(let friend of user.following){
+      //     console.log("friend:",friend)
+      //     Post.find({creator:friend._id}).populate('creator').exec(function(err,friendposts){
+      //       // console.log(friend.username,"'s posts",friendposts)
+      //       for(p of friendposts){
+      //         feed.push(p)
+      //       }
+      //       if(friend.next == null){
+      //         // console.log("loop-feed",feed)
+      //         res.json(feed)
+      //       }
+      //     })
+      //   }
+      // })
+      res.json(feed)
     })
   },
   //search component functions
   allUsers: function (req, res) {
     User.find({}, function (err, users) {
-      if (err) { return handleError(err)};
+      if (err) { return console.log(err) };
       return res.json({ users: users })
     })
   },
   follow: function (req, res) { //need to look at this function and models to figure out why only the id is being saved to the model, not the whole object. 
     console.log("id:", req.params.id)
-    User.findOne({ _id: req.session.user._id }).populate('User').exec(function (err, user) {
-      if (err) { return handleError(err)};
-      User.findOne({ _id: req.params.id }).populate('User').exec(function (error, other) {
-        if (error) { return handleError(error)};
-        user.following.push(other);
+    User.findOne({ _id: req.session.user._id }).populate('following').exec(function (err, user) {
+      if (err) { return console.log(err) };
+      User.findOne({ _id: req.params.id }).populate('followers').exec(function (error, other) {
+        if (error) { return console.log(error) };
+        user.following.push(other._id);
         user.save()
-        other.followers.push(user);
+        other.followers.push(user._id);
         other.save()
         console.log("user:", user, "||| other user:", other)
-        res.json() //might not work
+        res.json()
       })
     })
   },
@@ -90,16 +96,16 @@ module.exports = {
   newPost: function (req, res) {
     // console.log("image", req.body.image)
     //post validations go here
-    Post.create({ caption: req.body.caption, image: req.body.image, creator: req.session.user._id},function (error, post) {
-      if (error) { return handleError(error)};
-      User.findOne({ _id: req.session.user._id }).populate('Post').exec(function (err, user) {
-        if (err) { return handleError(err)};
-        console.log("newPost-post:",post);
-        console.log("                                   ")
-        user.posts.push(post)
+    User.findOne({ _id: req.session.user._id }).populate('posts').exec(function (err, user) {
+      if (err) { return console.log(err) };
+      Post.create({ caption: req.body.caption, image: req.body.image, creator: user._id }, function (error, post) {
+        if (error) { return console.log(error) };
+        // console.log("newPost-post:", post);
+        // console.log("                                   ")
+        user.posts.push(post._id)
         user.save()
-        console.log("newPost-UPDATED user:",user)
-        return res.json(post)
+        // console.log("newPost-UPDATED user:", user)
+        return res.json(user)
       })
     })
   },

@@ -65,6 +65,8 @@ export class SearchComponent implements OnInit {
       if (data) {
         //if user is logged in, set current user to session user
         this.currentUser = data.user;
+        //reset user arr or else user list will be bloated/repeated over and over every refresh
+        this.userArr = [];
         //run grab all function
         this._interlink.getUsers();
         //when grab all is run, it will update the behavioral subject which means the following will update, when its updated all its subscribers will be triggered

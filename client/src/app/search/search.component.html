@@ -6,7 +6,7 @@
       <p>{{currentUser.firstname}} {{currentUser.lastname}}</p>
       <p class="text-secondary"> You </p>
     </li>
-    <li class="list-group-item" *ngFor="let u of allUsers">
+    <li class="list-group-item" *ngFor="let u of userArr">
       <h5>{{u.username}}</h5>
       <p>{{u.firstname}} {{u.lastname}}</p>
       <button *ngIf="u.followers.length==0; else elseBlock" class="btn btn-info" (click)="follow(u._id)">Follow</button>

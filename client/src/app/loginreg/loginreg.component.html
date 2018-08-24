@@ -9,6 +9,7 @@
         <div class="col">
             <h3 class="display-4">Log In</h3>
             <form (submit)="login()">
+                <!-- this is the div to check for errors, will only appear on html if error triggered from built in form validations, or the catches in the component -->
                 <div class="errorfield">
                     <div *ngIf="errorMessages.length >= 1" class="alert alert-danger">
                         <div *ngFor="let error of errorMessages">
@@ -32,6 +33,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- this is the actual form -->
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" required minlength="6" [(ngModel)]="user.username" id="username" name="username"
@@ -57,6 +59,7 @@
         </div>
         <div class="modal-body">
             <!-- <h3 class="display-4">Register</h3> -->
+            <!-- this is the error catch -->
             <div class="errorfield">
                 <div *ngIf="errorMessages.length >= 1" class="alert alert-danger">
                     <div *ngFor="let error of errorMessages">
@@ -112,6 +115,7 @@
                     </div>
                 </div>
             </div>
+            <!-- actual form -->
             <form (submit)="register()">
                 <div class="form-group">
                     <label for="first_name">First Name</label>

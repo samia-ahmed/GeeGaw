@@ -4,17 +4,17 @@
       <!-- need to update models to link models together instead of objects -->
       <form (submit)="new()">
         <h3 class="display-4">New Post</h3>
-        <div class="form-group">
-          <div class="input-group mb-3">
+        <div class="form-group"> <!--photo upload input-->
+          <div class="input-group mb-3"> 
             <div class="input-group-prepend">
               <span class="input-group-text">Upload</span>
             </div>
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="image">
               <label class="custom-file-label" for="image">Choose photo</label>
-            </div>
-          </div>
-        </div>
+            </div> 
+          </div> 
+        </div> <!--end photo upload input-->
         <div class="form-group">
           <input type="text" placeholder="caption" class="form-control" id="caption" name="caption" [(ngModel)]="newPost.caption" #caption="ngModel">
         </div>
@@ -23,4 +23,4 @@
     </div>
   </div>
 </div>
-<app-footer></app-footer>
+<app-footer></app-footer> <!--Only loading footer like this, no routing, to avoid repeating code-->
